@@ -137,51 +137,8 @@ if (is_array($decoration) && in_array('media', $decoration)) {
         $tagHtml = '';
         $searchEngine=$this->themeSetting('searchController') ;
 
-        foreach ($tagTerms as $tagTerm) {
-            if(isset($vals[$tagTerm])) {
-                $tagLabel="";
-                $fields = $vals[$tagTerm]['values'];
-
-                //PV 2023-11-05: This piece of code gets the resource template for the current field.
-                $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
-                $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
-
-                if(($fields!=null)&&(count($fields))) {
-                    $tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
-
-                    if($showLabel) {
-                        $label = $fields[0]->property()->label();
-                        $label = $altLabel?$altLabel:$label;
-                        $tagLabel=$label;
-                        $tagHtml .= '<span class="tag-label">'.$tagLabel.'</span>:&nbsp;';
-                    }
-
-                    foreach ($fields as $val) {
-                        try {
-                            $test='';
-                            $f_id = $val->property()->id();
-                            $f_pid = $val->property()->label();
-                            $f_pid2= $val->property()->localName();
-                            $tt2=str_replace(':', '_', $tagTerm);
-                            if($val)
-                            {
-                              // The displayName for all other tagTerms is in the default class method for value (= root of $val)
-                                    // Query to make the field browsable with a link
-                                    $query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
-                                    $tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
-                            }
-                        } catch (\Throwable $th) {
-                            echo $th;
-                        }
-                    }
-
-                    $tagHtml .= '</div>';
-                }
-            }
-        }
-        // END custom feature 'Custom field values in search results'
-
         ?>
+
         <li class="item resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
             <!-- Thumbnail -->
             <?php if ($thumbnail): ?>
@@ -194,17 +151,28 @@ if (is_array($decoration) && in_array('media', $decoration)) {
             <div class="resource__content">
                 <?php echo $this->ResourceTags($item); ?>
                 <!-- Metadata -->
+                <?php
+                    $siteregiontext = '';
+                    $site = $item->value('handaxes:siteName');
+                    $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
+                    $region = $site->valueResource() -> value('handaxes:region')->asHTML();
+                    $siteandregion .= $sitename;
+                    if (strlen($region)){
+                        $siteregiontext .= $region;
+                    }
+                    $museumspan = '';
+                    if(isset($vals['handaxes:museum'])){
+                        $museumspan .= '<span>'.$vals['handaxes:museum']['values'][0] -> value().' :</span>';
+                    }
+                ?>
                 <div class="resource__meta <?php echo ($isGrid) ? '' : 'media-object-section'; ?>">
-                    <?php echo $item->link($item->displayTitle(null, $valueLang)); ?>
-                    <?php if (strlen($tagHtml)||strlen($body)): ?>
-                        <div class="description">
-                            <?php //$body contains site or resource item description. ?>
-                            <?php if (strlen($body)): ?>
-                                <?php echo $escape($body); ?>
-                            <?php endif;?>
-                            <?= $tagHtml ?>
-                        </div>
+                    <?php if (strlen($siteregiontext)): ?>
+                        <div><?php echo $sitename . ', ' . $region; ?></div>
                     <?php endif; ?>
+                    <?php if (strlen($museumspan)): ?>
+                        <div><?php echo $museumspan ?></div>
+                    <?php endif; ?>
+                    <?php echo $item->link($item->displayTitle(null, $valueLang)); ?>
                 </div>
             </div>
         </li>
