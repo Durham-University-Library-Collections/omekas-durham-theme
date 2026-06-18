@@ -153,16 +153,16 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                 <!-- Metadata -->
                 <?php
                     $siteregiontext = '';
-                    $site = $item->value('handaxes:siteName');
+                    $site = $item->value('palaeostar:siteName');
                     $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
-                    $region = $site->valueResource() -> value('handaxes:region')->asHTML();
+                    $region = $site->valueResource() -> value('palaeostar:region')->asHTML();
                     $siteandregion .= $sitename;
                     if (strlen($region)){
                         $siteregiontext .= $region;
                     }
                     $museumspan = '';
-                    if(isset($vals['handaxes:museum'])){
-                        $museumspan .= '<span>'.$vals['handaxes:museum']['values'][0] -> value().' :</span>';
+                    if(isset($vals['palaeostar:museum'])){
+                        $museumspan .= '<span>'.$vals['palaeostar:museum']['values'][0] -> value().' :</span>';
                     }
                 ?>
                 <div class="resource__meta <?php echo ($isGrid) ? '' : 'media-object-section'; ?>">
