@@ -67,28 +67,28 @@ $thumbnailType = $searchConfig->subSetting('display', 'thumbnail_type', 'medium'
         $museumspan = '';
         $siteandregion ='';
 
-        if ($resource_class == '"handaxes:Artefact"'){
+        if ($resource_class == '"palaeostar:Artefact"'){
 
-            $site = $resource->value('handaxes:siteName');
+            $site = $resource->value('palaeostar:siteName');
             $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
-            $region = $site->valueResource() -> value('handaxes:region')->asHTML();
+            $region = $site->valueResource() -> value('palaeostar:region')->asHTML();
             $siteandregion .= $sitename;
             if (strlen($region)){
                 $siteregiontext .= $region;
             }
-            if(isset($vals['handaxes:museum'])){
-                $museumspan .= '<span>'.$vals['handaxes:museum']['values'][0] -> value().' :</span>';
+            if(isset($vals['palaeostar:museum'])){
+                $museumspan .= '<span>'.$vals['palaeostar:museum']['values'][0] -> value().' :</span>';
             }
-        } elseif ($resource_class == '"handaxes:Site"')
+        } elseif ($resource_class == '"palaeostar:Site"')
         {
             $sitename = $resource -> value('dcterms:title')->asHTML();
-            $region = $resource -> value('handaxes:region')->asHTML();
+            $region = $resource -> value('palaeostar:region')->asHTML();
             $siteandregion .= $sitename;
             if (strlen($region)){
                 $siteregiontext .= $region;
             }
-            if(isset($vals['handaxes:museum'])){
-                $museumspan .= '<span>'.$vals['handaxes:museum']['values'][0] -> value().' :</span>';
+            if(isset($vals['palaeostar:museum'])){
+                $museumspan .= '<span>'.$vals['palaeostar:museum']['values'][0] -> value().' :</span>';
             }
         }
 
