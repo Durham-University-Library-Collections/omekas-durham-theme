@@ -153,7 +153,9 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                 <!-- Metadata -->
                 <?php
                     $siteregiontext = '';
+
                     $site = $item->value('palaeostar:siteName');
+                    $siteandregion = '';
                     $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
                     $region = $site->valueResource() -> value('palaeostar:region')->asHTML();
                     $siteandregion .= $sitename;
