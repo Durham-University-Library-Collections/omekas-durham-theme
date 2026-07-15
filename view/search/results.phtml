@@ -49,6 +49,17 @@ $defaultThumbnail = $allThumbnail
 
 $thumbnailType = $searchConfig->subSetting('display', 'thumbnail_type', 'medium');
 ?>
+<?php if ($this->getHelperPluginManager() -> has('bulkExport')): ?>
+    <div class="bulk-export-container" style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
+        <?php
+        // Render the button. The helper automatically handles the current result set.
+        $resource_ids = $response -> getAllResourceIds();
+        if (count($resource_ids) < $setting('bulkexport_limit')) {
+            echo $this->bulkExport($resource_ids, ['format' => 'csv', 'label' => 'Download CSV']);
+        }
+        ?>
+    </div>
+<?php endif; ?>
 
 <ul class="resource-list search-results-list<?= $gridListMode === 'list_only' ? ' list' : ($gridListMode === 'grid_only' ? ' grid' : '') ?>">
     <?php
