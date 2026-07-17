@@ -1,0 +1,4 @@
+/* Hides images only for item resource links within values */
+div.palaeostar\:siteName a.resource-link img {
+    display: none;
+}
