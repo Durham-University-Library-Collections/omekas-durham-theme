@@ -2,3 +2,41 @@
 div.palaeostar\:siteName a.resource-link img {
     display: none;
 }
+
+/* Linked Resources (grid) */
+.linked-resources .linked-resource-list-grid {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+    align-items: stretch;
+    align-content: start;
+    gap: 18px 18px;
+    padding: initial;
+    margin: initial;
+}
+.linked-resources .linked-resource-list-grid .resource {
+    display: flex;
+    flex-flow: column wrap;
+    flex: 1 1 200px;
+    row-gap: 6px;
+    align-items: flex-start;
+    width: 0;
+    margin: 0;
+    padding: 0 0 12px;
+}
+.linked-resources .linked-resource-list-grid .resource-thumbnail {
+    display: flex;
+    justify-content: center;
+}
+.linked-resources .linked-resource-list-grid .resource-thumbnail img {
+    max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+.linked-resources .linked-resource-list-grid .resource-heading {
+    justify-content: center;
+}

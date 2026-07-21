@@ -5,6 +5,13 @@ use Laminas\Form\Element\Select;
 $pagination = $this->pagination(null, $totalCount, $page, $perPage);
 $fragment = 'resources-linked';
 $pagination->setFragment($fragment);
+$plugins = $this->getHelperPluginManager();
+$thumbnail = $plugins->get('thumbnail');
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$siteSlug = isset($site) ? $site->slug() : null;
+$hyperlink = $plugins->get('hyperlink');
+$defaultThumbnail = sprintf('<img loading="lazy" src="%1$s" title="%2$s"/>', $assetUrl('thumbnails/default.png', 'Omeka', true), $translate('No media'));
 
 // Set up locale.
 $valueLang = null;
@@ -92,32 +99,56 @@ $headingTerm = $this->siteSetting('browse_heading_property_term');
             id="accordion__panel-<?php echo $values[0]['property_id']; ?>"
             role="region"
             aria-labelledby="accordion-<?php echo $values[0]['property_id']; ?>">
-
+            <div class="linked-resources">
+            <ul class="linked-resource-list-grid">
             <?php foreach ($values as $value) :
 
                 $resource = $value['val']->resource();
+                $vals = $resource -> values();
+                $resourceUrl = isset($site) ? $resource->siteUrl($siteSlug) : $resource->adminUrl();
                 $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $this->translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
                 $media = ($resource instanceof \Omeka\Api\Representation\ItemRepresentation) ? ($resource->media()[0] ?? null) : null;
                 $altText = $media ? ($media->altText() ?: $resource->displayTitle()) : $resource->displayTitle();
-                $thumbnail = $this->thumbnail($resource, 'square', ['alt' => $altText]);
+                $site = $resource->value('palaeostar:siteName');
+                $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
+                $region = $site->valueResource() -> value('palaeostar:region')->asHTML();
+                $siteandregion = '';
+                $siteandregion .= $sitename;
+                if (strlen($region)){
+                    $siteregiontext = '';
+                    $siteregiontext .= $region;
+                }
+                if(isset($vals['palaeostar:museum'])){
+                    $museumspan = '';
+                    $museumspan .= '<span>'.$vals['palaeostar:museum']['values'][0] -> value().' :</span>';
+                }
+
                 ?>
 
-                <div class="linked-resource">
-                    <!-- Content -->
-                    <div class="resource__content">
-                        <?php echo $this->ResourceTags($resource); ?>
-                        <?php echo $resource->link($heading); ?>
-                    </div>
-
-                    <!-- Thumbnail -->
-                    <?php if ($thumbnail) : ?>
-                        <div class="resource__thumbnail">
-                            <?php echo $resource->linkRaw($thumbnail); ?>
+                <li class="resource <?= $resourceType ?>">
+                        <?php $resourceThumbnail = $thumbnail($resource, 'medium'); ?>
+                        <div class="resource-thumbnail">
+                            <?php if ($resourceThumbnail): ?>
+                                <?= $hyperlink->raw($resourceThumbnail ?: $defaultThumbnail, $resourceUrl, ['class' => 'resource-link']) ?>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-                </div>
 
+                    <div class="resource__meta">
+                        <?php if (strlen($siteregiontext)): ?>
+                            <div><?php echo $sitename . ', ' . $region; ?></div>
+                        <?php endif; ?>
+                        <?php if (strlen($museumspan)): ?>
+                            <div><?php echo $museumspan ?></div>
+                        <?php endif; ?>
+                        <?php echo $resource->link($resource->displayTitle(null, $valueLang)); ?>
+                    </div>
+                    <div class="resource-body resource-metadata">
+
+                    </div>
+                </li>
             <?php endforeach; ?>
+            </ul>
+            </div>
         </div>
     </div>
 
