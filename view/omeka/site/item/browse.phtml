@@ -121,7 +121,6 @@ if (is_array($decoration) && in_array('media', $decoration)) {
 </div>
 
 <?php $this->trigger('view.browse.before'); ?>
-
 <ul class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
 
     <?php
@@ -151,6 +150,7 @@ if (is_array($decoration) && in_array('media', $decoration)) {
             <div class="resource__content">
                 <?php echo $this->ResourceTags($item); ?>
                 <!-- Metadata -->
+                <?php if(!is_null($item -> resourceClass()) and in_array($item -> resourceClass() -> term(), array('palaeostar:Artefact', 'palaeostar:Site'))): ?>
                 <?php
                     $siteregiontext = '';
 
@@ -176,6 +176,11 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                     <?php endif; ?>
                     <?php echo $item->link($item->displayTitle(null, $valueLang)); ?>
                 </div>
+                <?php else: ?>
+                <div class="resource__meta <?php echo ($isGrid) ? '' : 'media-object-section'; ?>">
+                    <?php echo $item->link($item->displayTitle(null, $valueLang)); ?>
+                </div>
+                <?php endif; ?>
             </div>
         </li>
     <?php endforeach; ?>
