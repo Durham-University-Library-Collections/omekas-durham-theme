@@ -14,7 +14,7 @@ $searchValue = $this->escapeHtml($this->params()->fromQuery(''));
 
 <form action="<?php echo $this->escapeHtml($searchAction); ?>" id="search-form" aria-label="<?php echo $translate('Search'); ?>" role="search">
     <input type="text" id="q" name="q" value="<?php echo $searchValue; ?>"
-        placeholder="<?php echo $translate('Enter a Solr search term'); ?>"
+        placeholder="<?php echo $translate('Enter a search term'); ?>"
         aria-label="<?php echo $translate('Query'); ?>" aria-labelledby="search-form q">
     <button id="search-submit" type="submit" aria-label="<?php echo $translate('Submit'); ?>" title="<?php echo $translate('Submit'); ?>"><span class="o-icon-search" aria-hidden="true"></span></button>
 </form>
