@@ -7,7 +7,7 @@ switch ($searchType) {
         break;
     case 'sitewide':
     default:
-        $searchAction = $this->site->url().'/solrsearch';
+        $searchAction = $this->site->url().'/facetsearch';
 }
 $searchValue = $this->escapeHtml($this->params()->fromQuery(''));
 ?>
