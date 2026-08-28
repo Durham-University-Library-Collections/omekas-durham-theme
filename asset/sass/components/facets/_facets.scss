@@ -228,7 +228,10 @@
     }
 
 }
-.facets button.facet-button {
+.facets button.facet-button.expand {
+    background: var(--primary);
+}
+.facets button.facet-button.collapse {
     background: var(--primary);
 }
 button.facet-see-more-or-less {
