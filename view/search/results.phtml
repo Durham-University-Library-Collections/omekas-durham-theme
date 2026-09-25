@@ -80,7 +80,7 @@ $thumbnailType = $searchConfig->subSetting('display', 'thumbnail_type', 'medium'
 
         if ($resource_class == '"palaeostar:Artefact"'){
 
-            $site = $resource->value('palaeostar:siteName');
+            $site = $resource->value('palaeostar:site');
             $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
             $region = $site->valueResource() -> value('palaeostar:region')->asHTML();
             $siteandregion .= $sitename;
