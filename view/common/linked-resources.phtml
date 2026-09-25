@@ -109,7 +109,7 @@ $headingTerm = $this->siteSetting('browse_heading_property_term');
                 $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $this->translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
                 $media = ($resource instanceof \Omeka\Api\Representation\ItemRepresentation) ? ($resource->media()[0] ?? null) : null;
                 $altText = $media ? ($media->altText() ?: $resource->displayTitle()) : $resource->displayTitle();
-                $site = $resource->value('palaeostar:siteName');
+                $site = $resource->value('palaeostar:site');
                 $sitename = $site -> valueResource() -> value('dcterms:title')->asHTML();
                 $region = $site->valueResource() -> value('palaeostar:region')->asHTML();
                 $siteandregion = '';
