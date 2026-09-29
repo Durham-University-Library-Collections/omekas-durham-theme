@@ -20,7 +20,19 @@ $rightSidebarHasBlocks = $rightSidebarBlockContent->hasBlocks();
 ?>
 
 <?php echo $this->ResourceTags($item); ?>
-<?php echo $this->pageTitle($item->displayTitle(null, $valueLang), 1); ?>
+<?php if (!is_null($resource -> resourceClass()) and $resource -> resourceClass() -> term() == 'palaeostar:Artefact'): ?>
+    <?php
+        $accession = $item -> displayTitle(null, $valueLang);
+        $siteRes = $resource -> value('palaeostar:site')->valueResource();
+        $siteTitle = $siteRes -> displayTitle();
+        $siteRegion = $siteRes -> value('palaeostar:region')->value();
+        $dispalyTitle = $accession . " - " . $siteTitle . " - " . $siteRegion;
+    ?>
+<?php else: ?>
+    <?php $dispalyTitle = $item->displayTitle(null, $valueLang); ?>
+<?php endif; ?>
+
+<?php echo $this->pageTitle($dispalyTitle); ?>
 
 <?php $this->trigger('view.show.before'); ?>
 
