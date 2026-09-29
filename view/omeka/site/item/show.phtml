@@ -26,7 +26,7 @@ $rightSidebarHasBlocks = $rightSidebarBlockContent->hasBlocks();
         $siteRes = $resource -> value('palaeostar:site')->valueResource();
         $siteTitle = $siteRes -> displayTitle();
         $siteRegion = $siteRes -> value('palaeostar:region')->value();
-        $dispalyTitle = $accession . " - " . $siteTitle . " - " . $siteRegion;
+        $dispalyTitle = $accession . ": " . $siteTitle . ", " . $siteRegion;
     ?>
 <?php else: ?>
     <?php $dispalyTitle = $item->displayTitle(null, $valueLang); ?>
