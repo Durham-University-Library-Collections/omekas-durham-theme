@@ -293,6 +293,12 @@
     }
 }
 
+fieldset{
+    .field {
+        min-width: 275px;
+    }
+}
+
 .search-filters {
     display: flex;
     flex-wrap: wrap;
