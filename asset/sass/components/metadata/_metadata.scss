@@ -15,15 +15,12 @@
     }
 
     dl {
-        margin-top: 0;
-        margin-bottom: 2rem;
 
         &:last-child {
             margin-bottom: 0;
         }
 
         > .property {
-            margin-bottom: 1.25rem;
 
             &::after {
                 content: "";
