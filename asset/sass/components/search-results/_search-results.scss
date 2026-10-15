@@ -11,3 +11,34 @@ body.search {
         }
     }
 }
+
+body.search-page {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    fieldset {
+        display: grid;
+        --grid-layout-gap: 10px;
+        --grid-column-count: 4;
+        --grid-item--min-width: 17.8rem;
+        --gap-count: calc(var(--grid-column-count) - 1);
+        --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+        --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
+        grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr));
+        grid-gap: var(--grid-layout-gap);
+        .field:has(input[type="search"]){
+        grid-column: 1 / -1;
+    }
+    }
+
+    .search-results-wrapper {
+       display: grid;
+       grid-template-columns: 1fr;
+       @media(min-width: 800px) {
+           grid-template-columns: 1fr 2fr;
+       }
+    }
+}
+
+.form-search button.search-submit {
+    float: unset;
+}
