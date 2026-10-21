@@ -129,3 +129,15 @@ $thumbnailType = $searchConfig->subSetting('display', 'thumbnail_type', 'medium'
     </li>
     <?php endforeach; ?>
 </ul>
+
+<script>
+function openFacets() {
+  document.getElementById("search-facets-container").style.display = "block";
+  document.getElementById("open-facets").style.display = "none";
+}
+
+function closeFacets() {
+  document.getElementById("search-facets-container").style.display = "none";
+  document.getElementById("open-facets").style.display = "block";
+}
+</script>
