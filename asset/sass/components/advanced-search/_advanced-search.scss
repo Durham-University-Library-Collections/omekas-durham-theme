@@ -327,3 +327,27 @@ fieldset{
         }
     }
 }
+
+.facets-list{
+    padding: 1rem 2rem;
+    margin: 0;
+}
+
+#open-facets{
+    display: none;
+}
+#close-facets{
+    display: block;
+}
+
+@media (min-width: 800px) {
+    #close-facets{
+        display: none;
+    }
+    #open-facets{
+        display: none;
+    }
+    #search-facets-container{
+        display:block;
+    }
+}
