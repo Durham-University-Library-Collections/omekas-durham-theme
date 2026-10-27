@@ -115,14 +115,15 @@ $thumbnailType = $searchConfig->subSetting('display', 'thumbnail_type', 'medium'
         <?php endif; ?>
 
         <div class="resource__meta">
-            <?php if (strlen($siteregiontext)): ?>
-                <div><?php echo $sitename . ', ' . $region; ?></div>
-            <?php endif; ?>
-            <?php if (strlen($museumspan)): ?>
-                <div><?php echo $museumspan ?></div>
-            <?php endif; ?>
-            <?php echo $resource->link($resource->displayTitle(null, $langValue)); ?>
-        </div>
+            <div>
+                <?php if (strlen($siteregiontext)): ?>
+                    <?php echo $sitename . ', ' . $region; ?>
+                <?php endif; ?>
+                <?php if (strlen($museumspan)): ?>
+                    <span><?php echo $museumspan ?></span>
+                <?php endif; ?>
+                <?php echo $resource->link($resource->displayTitle(null, $langValue)); ?>
+            </div>
         <div class="resource-body resource-metadata">
 
         </div>
