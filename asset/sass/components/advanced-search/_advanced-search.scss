@@ -351,3 +351,30 @@ fieldset{
         display:block;
     }
 }
+
+.search-results .resource-list.list {
+    display: grid;
+}
+
+.search-results .resource-list.grid {
+    display: grid;
+}
+
+.search-results .resource-list.list .resource {
+    display: grid;
+    grid-template-columns: 1fr minmax(9rem, 10rem);
+    justify-items: center;
+    align-items: center;
+}
+
+.search-results .resource-list.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+.search-results .resource-list.grid .resource {
+    display: grid;
+    grid-template-columns: 1fr minmax(9rem, 10rem);
+    justify-items: center;
+    align-items: center;
+}
